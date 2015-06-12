@@ -22,6 +22,8 @@ sudo cp kerl /usr/bin
 sudo kerl update releases
 sudo kerl build ${OTP_VERSION} ${OTP_VERSION_NAME}
 sudo kerl install ${OTP_VERSION_NAME} /usr/${OTP_VERSION_NAME}
+sudo . /usr/${OTP_VERSION_NAME}/activate
+kerl active
 
 #this will setup OTP for provisioning user, e.g vagrant
 #it may be safely deleted as reduntant. Settings for logging
