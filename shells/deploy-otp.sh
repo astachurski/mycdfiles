@@ -6,9 +6,15 @@
 
 #todo: parametrize with OTP version.
 
-OTP_VERSION="17.4"
-OTP_VERSION_NAME="OTP_174"
+export echo OTP_VERSION="17.4"
+export echo OTP_VERSION_NAME="OTP_174"
 sudo apt-get install -y -q make
+
+#Below - Uncomment for Debian/Mint or other "Unknown" releases. This line has been suggested
+#By Basho in RIAK documentation, section "Installing-Erlang". Also, some parameters for ./configure
+#script used by kerl are listed there.
+#sudo apt-get install build-essential libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev
+
 sudo apt-get install -y -q curl
 curl -O -s https://raw.githubusercontent.com/spawngrid/kerl/master/kerl
 chmod a+x kerl
