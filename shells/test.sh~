@@ -1,0 +1,4 @@
+#!/bin/sh
+
+curl -O https://raw.githubusercontent.com/spawngrid/kerl/master/kerl
+chmod a+x kerl

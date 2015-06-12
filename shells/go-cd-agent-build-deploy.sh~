@@ -1,0 +1,50 @@
+#!/bin/sh
+
+#DEPLOY GO-AGENT and prepare environment for MongooseIM build and unit testing
+
+#TODO: pass as parameter from Vagrantfile via main deploy script.
+GO_CD_SERVER_IP="192.168.33.10"
+
+BASE_FILE_PATH=/vagrant/files
+JAVA_VERSION=7u80-linux-i586
+JAVAFILE=${BASE_FILE_PATH}/jre-${JAVA_VERSION}.tar.gz
+sudo apt-get update
+sxxxxzzudo apt-get install -y -q unzip
+sudo apt-get install -y -q ntp
+
+if [ ! "`which java`" = '/usr/bin/java' ]; then
+    sudo apt-get install -y -q openjdk-7-jre-headless
+fi
+
+sudo apt-get install -y -q libpam0g-dev
+sudo apt-get install -y -q libexpat1-dev
+sudo apt-get install -y -q odbc-postgresql
+sudo apt-get install -y -q libmyodbc
+sudo apt-get install -y -q git
+
+#This can be called from outside, AFTER this script.
+#todo: parametrize by OTP version for possibly parallel multiplatform tests.
+#/vagrant/shells/deploy-otp.sh   MOVED OUTSIDE!
+
+#if [ -e $JAVAFILE ]; then
+#    echo "ok, ${JAVAFILE} exists"
+#    tar -xzf ${JAVAFILE} -C /opt
+#    sudo  update-alternatives --install /usr/bin/java java /opt/jre1.7.0_80/bin/java 100
+#fi
+#sudo mkdir /var/lib
+#sudo /usr/sbin/groupadd -r go 2>/dev/null
+#sudo /usr/sbin/useradd -r -s /bin/sh -d /var/go -g go go 2>/dev/null
+
+
+GO_AGENT_VERSION=15.1.0-1863
+AGENTFILE=${BASE_FILE_PATH}/go-agent-${GO_AGENT_VERSION}.deb
+
+if [ -e "$AGENTFILE" ]; then
+    sudo dpkg -i $AGENTFILE
+fi
+
+#sudo chown -R go:go /var/lib/go-agent
+
+sudo sed -i "s/127.0.0.1/${GO_CD_SERVER_IP}/g" /etc/default/go-agent
+sudo service go-agent restart
+

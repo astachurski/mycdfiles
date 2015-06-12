@@ -1,0 +1,16 @@
+#!/bin/sh
+
+HOSTNAME=`hostname -s`
+
+if [ "$HOSTNAME" = "go-cd-server" ]; then
+    sh /vagrant/shells/go-server-deploy.sh
+elif [ "$HOSTNAME" = "go-cd-agent-build" ]; then
+    #deploy go-agent with prerequisities
+
+    #deploy otp platform for building
+    sh /vagrant/shells/deploy-otp.sh
+    sh /vagrant/shells/go-cd-agent-build-deploy.sh
+elif [ "$HOSTNAME" = "go-cd-agent-functesting" ]; then
+    cd .
+    # sh /vagrant/shells/go-agent2-deploy.sh
+fi
