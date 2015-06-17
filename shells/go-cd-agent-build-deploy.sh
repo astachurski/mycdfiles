@@ -42,11 +42,12 @@ fi
 
 #ensure environment also works for user logging into worker machine
 sudo cp /etc/skel/.bashrc /var/go/
-sudo chown go:go .bashrc
+sudo chown go:go /var/go/.bashrc
 sudo echo "export HOME=/var/go" >> /var/go/.bashrc
 
 sudo echo "export PATH=$PATH:/usr/${OTP_VERSION_NAME}" >> /etc/default/go-agent
 sudo echo "export PATH=$PATH:/usr/${OTP_VERSION_NAME}/bin" >> /etc/default/go-agent
+sudo echo "export HOME=/var/go" >> /etc/default/go-agent
 sudo sed -i "s/127.0.0.1/${GO_CD_SERVER_IP}/g" /etc/default/go-agent
 
 sudo service go-agent restart

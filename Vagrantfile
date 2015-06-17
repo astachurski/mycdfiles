@@ -21,8 +21,6 @@ Vagrant.configure(2) do |config|
       node_config.vm.provision :shell do | shell |
         #call common provisioning script. Pass params if needed.
         shell.path = 'shells/deploy.sh'
-        # shell.path = 'shells/deploy-otp.sh'
-        # shell.path = 'shells/go-cd-agent-build-deploy.sh'
       end
     end
   end
